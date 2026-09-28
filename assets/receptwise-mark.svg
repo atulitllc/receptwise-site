@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 12 192 192" width="512" height="512" preserveAspectRatio="xMidYMid meet" role="img" aria-label="ReceptWise owl">
+<title>ReceptWise owl</title>
+
+<g id="owl">
+  <g stroke="#1E2A44" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- ear tufts -->
+    <path d="M52,66 L45,26 L82,46 Z" fill="#1F9384"/>
+    <path d="M148,66 L155,26 L118,46 Z" fill="#1F9384"/>
+    <!-- feet -->
+    <g fill="#FF9F43" stroke-width="3">
+      <ellipse cx="76" cy="189" rx="6" ry="5"/><ellipse cx="87" cy="190" rx="6" ry="5"/>
+      <ellipse cx="113" cy="190" rx="6" ry="5"/><ellipse cx="124" cy="189" rx="6" ry="5"/>
+    </g>
+    <!-- body -->
+    <path id="rw-body" d="M100,38 C150,38 168,72 168,114 C168,160 140,186 100,186 C60,186 32,160 32,114 C32,72 50,38 100,38 Z" fill="#2BB3A3"/>
+  </g>
+  <clipPath id="rw-bodyclip"><path d="M100,38 C150,38 168,72 168,114 C168,160 140,186 100,186 C60,186 32,160 32,114 C32,72 50,38 100,38 Z"/></clipPath>
+  <g clip-path="url(#rw-bodyclip)">
+    <ellipse cx="100" cy="156" rx="44" ry="36" fill="#FFF4E0"/>
+    <g fill="none" stroke="#F2CF96" stroke-width="3" stroke-linecap="round">
+      <path d="M84,144 q5,5 10,0"/><path d="M106,144 q5,5 10,0"/>
+      <path d="M73,160 q5,5 10,0"/><path d="M95,160 q5,5 10,0"/><path d="M117,160 q5,5 10,0"/>
+    </g>
+  </g>
+  <path d="M100,38 C150,38 168,72 168,114 C168,160 140,186 100,186 C60,186 32,160 32,114 C32,72 50,38 100,38 Z" fill="none" stroke="#1E2A44" stroke-width="4.5"/>
+  <!-- face discs -->
+  <g fill="#FFF4E0" stroke="#1E2A44" stroke-width="3.5">
+    <circle cx="74" cy="98" r="26"/><circle cx="126" cy="98" r="26"/>
+  </g>
+  <!-- eyes -->
+  <g style="transform-origin:77px 100px">
+    <circle cx="77" cy="100" r="14" fill="#1E2A44"/><circle cx="72" cy="94" r="5" fill="#fff"/><circle cx="82" cy="105" r="2.2" fill="#fff"/>
+  </g>
+  <g style="transform-origin:123px 100px">
+    <circle cx="123" cy="100" r="14" fill="#1E2A44"/><circle cx="118" cy="94" r="5" fill="#fff"/><circle cx="128" cy="105" r="2.2" fill="#fff"/>
+  </g>
+  <!-- cheeks -->
+  <ellipse cx="54" cy="126" rx="8" ry="5" fill="#F4877D"/>
+  <ellipse cx="146" cy="126" rx="8" ry="5" fill="#F4877D"/>
+  <!-- beak -->
+  <path d="M91,115 Q100,109 109,115 Q105,127 100,130 Q95,127 91,115 Z" fill="#FF9F43" stroke="#1E2A44" stroke-width="3" stroke-linejoin="round"/>
+  <!-- wings -->
+  <g stroke="#1E2A44" stroke-width="4.5" stroke-linejoin="round" fill="#1F9384">
+    <path d="M40,116 C20,134 24,166 48,174 C54,152 55,132 40,116 Z"/>
+    <g style="transform-origin:158px 118px">
+      <path d="M160,116 C180,134 176,166 152,174 C146,152 145,132 160,116 Z"/>
+    </g>
+  </g>
+  <!-- headset -->
+  <g stroke="#1E2A44" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M33,98 C28,8 172,8 167,98" fill="none" stroke-width="10"/>
+    <path d="M33,98 C28,8 172,8 167,98" fill="none" stroke="#FF6B6B" stroke-width="4"/>
+    <path d="M33,114 C33,150 54,160 76,154" fill="none" stroke-width="4.5"/>
+    <rect x="22" y="84" width="20" height="36" rx="9" fill="#FF6B6B" stroke-width="4"/>
+    <rect x="158" y="84" width="20" height="36" rx="9" fill="#FF6B6B" stroke-width="4"/>
+    <circle cx="80" cy="153" r="7.5" fill="#FF6B6B" stroke-width="3.5"/>
+  </g>
+</g>
+</svg>
