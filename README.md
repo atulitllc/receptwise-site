@@ -29,8 +29,8 @@ python3 -m http.server 8000
 
 ## Call to book a demo
 The live AI receptionist number is **(781) 705-7179** (`tel:+17817057179`). It is the primary
-call to action in the hero, the final CTA, the footer, and a sticky "Call now" button on
-small screens. Calling it books a free 20-minute demo.
+call to action: a compact pill in the hero, the final CTA, and the footer, plus a small
+floating "Call now" pill in the bottom-right corner on small screens. Calling it books a free 20-minute demo.
 
 "Book a free 20-minute chat" stays as a secondary option. There is no booking system yet, so
 those buttons open an on-page form that **does not send anything**. Two options:
