@@ -27,9 +27,13 @@ python3 -m http.server 8000
 4. After a minute the site is live at `https://<user>.github.io/<repo>/`.
 5. Optional custom domain: add it under Settings → Pages → Custom domain and follow the DNS instructions.
 
-## Swap in a real booking link
-There is no booking system yet. All "Book a free chat" / "Start free pilot" buttons open an
-on-page form that **does not send anything**. Two options:
+## Call to book a demo
+The live AI receptionist number is **(781) 705-7179** (`tel:+17817057179`). It is the primary
+call to action in the hero, the final CTA, the footer, and a sticky "Call now" button on
+small screens. Calling it books a free 20-minute demo.
+
+"Book a free 20-minute chat" stays as a secondary option. There is no booking system yet, so
+those buttons open an on-page form that **does not send anything**. Two options:
 
 - **Calendly (or similar):** open `js/main.js` and set
   `var BOOKING_URL = "https://calendly.com/your-team/20min";`
