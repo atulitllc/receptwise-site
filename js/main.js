@@ -23,11 +23,13 @@
     if (!nav) return;
     nav.classList.remove("open");
     toggle.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
   }
   if (toggle && nav) {
     toggle.addEventListener("click", function () {
       var open = nav.classList.toggle("open");
       toggle.setAttribute("aria-expanded", String(open));
+      document.body.classList.toggle("nav-open", open);
     });
     nav.addEventListener("click", function (e) {
       if (e.target.closest("a, button")) closeNav();
@@ -200,6 +202,7 @@
     var t = e.target.closest("[data-open-contact]");
     if (t) { e.preventDefault(); openModal(t); return; }
     if (e.target.closest("[data-close-contact]")) closeModal();
+    if (e.target.closest("#contact-modal a[href^='tel:']")) closeModal();
   });
   // click on the backdrop closes the dialog
   modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
@@ -226,9 +229,8 @@
 
     // PROTOTYPE: nothing is sent. Replace this block with a real submission
     // (fetch() to your form backend) or redirect to BOOKING_URL (e.g. Calendly).
-    var first = name.value.trim().split(/\s+/)[0];
-    $("thanks-title").textContent = "Thanks, " + first + "! We'll be in touch.";
-    $("thanks-msg").textContent = "We'll reach out soon" + ($("cf-time").value ? " (" + $("cf-time").value.toLowerCase() + ")" : "") + " to set up your free 20-minute chat.";
+    $("thanks-title").textContent = "Call to book your demo";
+    $("thanks-msg").textContent = "This form does not send yet. Call (781) 705-7179 and our AI receptionist will book your free 20-minute demo.";
     formView.hidden = true;
     thanks.hidden = false;
     cform.reset();
