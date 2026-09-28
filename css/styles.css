@@ -374,7 +374,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 /* Sticky call pill: phones and narrow screens, bottom-right corner */
 .call-sticky{display:none}
 @media (max-width:899px){
-  .has-call-bar{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+  .has-call-bar{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
   .call-sticky{position:fixed;z-index:45;left:auto;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));display:inline-flex;width:auto;box-shadow:0 10px 24px rgba(30,42,68,.28)}
   .call-sticky:focus-visible{outline:3px solid #fff;outline-offset:3px;border-radius:999px;box-shadow:0 0 0 6px var(--navy),0 10px 24px rgba(30,42,68,.28)}
   body.nav-open .call-sticky,body:has(dialog[open]) .call-sticky{visibility:hidden;pointer-events:none}
