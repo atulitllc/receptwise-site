@@ -8,6 +8,9 @@ so it works at a GitHub Pages sub-path (e.g. `https://<user>.github.io/<repo>/`)
 - `terms.html`, `privacy.html`: DRAFT placeholder legal pages (company name is `[Placeholder]`)
 - `css/styles.css`: all styles (mobile first, respects `prefers-reduced-motion`)
 - `js/main.js`: nav, scroll reveals, calculator, contact modal
+- `js/browser-call.js`: in-browser "Talk in browser" call (hidden until a real public key is set)
+- `assets/vapi-config.js`: public key and assistant id for the in-browser call
+- `assets/vendor/vapi-web.js`: vendored browser bundle used by the in-browser call
 - `assets/`: logo and owl mark (SVG + PNG)
 - `screenshots/`: QA screenshots (not needed for publishing; you can delete this folder)
 - `.nojekyll`: tells GitHub Pages to serve files as-is
@@ -31,6 +34,13 @@ python3 -m http.server 8000
 The live AI receptionist number is **(781) 705-7179** (`tel:+17817057179`). It is the primary
 call to action: a compact pill in the hero, the final CTA, and the footer, plus a small
 floating "Call now" pill in the bottom-right corner on small screens. Calling it books a free 20-minute demo.
+
+## Talk in the browser
+Next to the phone pill, visitors can press **Talk in browser** and speak with Nora without a phone.
+The button, and the line "Calls may be recorded to improve service.", stay hidden while
+`VAPI_PUBLIC_KEY` in `assets/vapi-config.js` is still `VAPI_PUBLIC_KEY_PLACEHOLDER`.
+Replace that placeholder with the real public key and the button shows up in the hero,
+the closing section, the footer, and the floating mobile cluster.
 
 "Book a free 20-minute chat" stays as a secondary option. There is no booking system yet, so
 those buttons open an on-page form that **does not send anything**. Two options:
