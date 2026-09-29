@@ -42,16 +42,18 @@ The button, and the line "Calls may be recorded to improve service.", stay hidde
 Replace that placeholder with the real public key and the button shows up in the hero,
 the closing section, the footer, and the floating mobile cluster.
 
-"Book a free 20-minute chat" stays as a secondary option. There is no booking system yet, so
-those buttons open an on-page form that **does not send anything**. Two options:
+"Book a free 20-minute chat" stays as a secondary option. Those buttons open an on-page form
+that POSTs JSON to `DEMO_REQUEST_URL` in `js/main.js`
+(`https://panel.receptwise.com/api/public/demo-requests`). The body includes
+`name`, `business_name`, `phone`, `email`, `business_type`, `preferred_time`,
+`message`, `source_page` (the page URL), and `website` (a hidden honeypot humans do not see).
+A name plus a phone number or email is required. The request times out after 8 seconds.
+To send people to an external scheduler instead, set `BOOKING_URL` in `js/main.js` to that
+https URL. The book buttons then open it in a new tab and skip the modal.
 
-- **Calendly (or similar):** open `js/main.js` and set
-  `var BOOKING_URL = "https://calendly.com/your-team/20min";`
-  Every button then opens that link in a new tab instead of the modal.
-- **Keep the form, send it somewhere:** in `js/main.js`, find the comment
-  `PROTOTYPE: nothing is sent` inside the contact form submit handler and replace it with a
-  `fetch()` to your form backend (Formspree, Getform, etc.). There's a matching comment in
-  `index.html` above the form.
+## Publish on Cloudflare Pages
+This site is static files with relative paths and no build step. In the Pages project leave
+the build command empty and set the build output directory to `/`.
 
 ## Before going live
 - Replace every `[Placeholder]` (footer copyright, legal pages) with the real company/legal name.

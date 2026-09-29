@@ -4,14 +4,18 @@
   document.documentElement.classList.add("js");
 
   /*
-   * BOOKING LINK
-   * There is no booking system yet, so every "Book a free chat" button opens the
-   * on-page contact form modal, which does NOT send data anywhere.
-   * When a real booking page exists (e.g. Calendly), paste its URL here, e.g.
-   *   var BOOKING_URL = "https://calendly.com/your-team/20min";
-   * and the buttons will open that link in a new tab instead of the modal.
+   * DEMO REQUESTS
+   * The contact modal POSTs JSON to this URL. Change it here only.
+   * Optional: set BOOKING_URL to a full https URL (for example a Calendly link)
+   * and the book buttons open that link instead of the modal.
    */
+  var DEMO_REQUEST_URL = "https://panel.receptwise.com/api/public/demo-requests";
+  var DEMO_REQUEST_TIMEOUT_MS = 8000;
   var BOOKING_URL = "";
+  var SUCCESS_MSG = "Thanks! We'll call you within one business day, or call us now at (781) 705-7179";
+  var ERROR_MSG = "We couldn't send your request. Call us now at (781) 705-7179 and we'll book your free 20-minute chat.";
+  var FORM_NOTE = "We use this only to reach you about your free chat.";
+  var SUBMIT_LABEL = "Request my free chat";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -180,6 +184,55 @@
   var thanks = $("modal-thanks");
   var lastTrigger = null;
 
+  var demoRequest = null;
+
+  function setSending(sending) {
+    var btn = $("cf-submit");
+    var status = $("cf-status");
+    if (btn) {
+      btn.disabled = sending;
+      btn.textContent = sending ? "Sending…" : SUBMIT_LABEL;
+      btn.setAttribute("aria-busy", sending ? "true" : "false");
+    }
+    if (status) status.textContent = sending ? "Sending your request…" : FORM_NOTE;
+  }
+
+  function cancelDemoRequest() {
+    var req = demoRequest;
+    if (!req) return;
+    req.cancelled = true;
+    demoRequest = null;
+    clearTimeout(req.timer);
+    if (req.controller) req.controller.abort();
+    setSending(false);
+  }
+
+  function modalIsOpen() {
+    return !!(modal.open || modal.hasAttribute("open"));
+  }
+
+  function showResult(ok) {
+    setSending(false);
+    $("thanks-retry").hidden = ok;
+    if (ok) cform.reset();
+    formView.hidden = true;
+    thanks.hidden = false;
+    $("thanks-title").textContent = ok ? "Thanks!" : "Please call us";
+    $("thanks-msg").textContent = ok ? SUCCESS_MSG : ERROR_MSG;
+    $("thanks-title").focus();
+  }
+
+  function finishDemo(req, ok) {
+    if (req.cancelled || demoRequest !== req) return;
+    clearTimeout(req.timer);
+    demoRequest = null;
+    if (!modalIsOpen()) {
+      setSending(false);
+      return;
+    }
+    showResult(ok);
+  }
+
   function openModal(trigger) {
     if (BOOKING_URL) { window.open(BOOKING_URL, "_blank", "noopener"); return; }
     lastTrigger = trigger || null;
@@ -187,15 +240,19 @@
     $("cf-plan").value = plan || "";
     formView.hidden = false;
     thanks.hidden = true;
+    $("thanks-retry").hidden = true;
+    setSending(false);
     if (typeof modal.showModal === "function") modal.showModal();
     else modal.setAttribute("open", "");
     setTimeout(function () { $("cf-name").focus(); }, 30);
   }
   function closeModal() {
+    cancelDemoRequest();
     if (typeof modal.close === "function" && modal.open) modal.close();
     else modal.removeAttribute("open");
   }
   modal.addEventListener("close", function () {
+    cancelDemoRequest();
     if (lastTrigger) lastTrigger.focus();
   });
   document.addEventListener("click", function (e) {
@@ -213,8 +270,21 @@
       if (bad) input.setAttribute("aria-invalid", "true"); else input.removeAttribute("aria-invalid");
     }
   }
+  function trimmed(id) {
+    var el = $(id);
+    return el && el.value ? el.value.trim() : "";
+  }
+
+  $("thanks-retry").addEventListener("click", function () {
+    thanks.hidden = true;
+    formView.hidden = false;
+    setSending(false);
+    $("cf-name").focus();
+  });
+
   cform.addEventListener("submit", function (e) {
     e.preventDefault();
+    if ($("cf-submit").disabled) return;
     var name = $("cf-name"), phone = $("cf-phone"), email = $("cf-email");
     var nameBad = !name.value.trim();
     var emailVal = email.value.trim();
@@ -227,13 +297,48 @@
     if (nameBad) { name.focus(); return; }
     if (contactBad) { (phone.value ? phone : email).focus(); return; }
 
-    // PROTOTYPE: nothing is sent. Replace this block with a real submission
-    // (fetch() to your form backend) or redirect to BOOKING_URL (e.g. Calendly).
-    $("thanks-title").textContent = "Call to book your demo";
-    $("thanks-msg").textContent = "This form does not send yet. Call (781) 705-7179 and our AI receptionist will book your free 20-minute demo.";
-    formView.hidden = true;
-    thanks.hidden = false;
-    cform.reset();
-    $("thanks-title").focus();
+    var payload = {
+      name: trimmed("cf-name"),
+      business_name: trimmed("cf-biz"),
+      phone: trimmed("cf-phone"),
+      email: trimmed("cf-email"),
+      business_type: trimmed("cf-type"),
+      preferred_time: trimmed("cf-time"),
+      message: trimmed("cf-message"),
+      source_page: window.location.href,
+      website: trimmed("cf-website")
+    };
+
+    var req = { cancelled: false, controller: null, timer: 0 };
+    if (typeof AbortController === "function") req.controller = new AbortController();
+    demoRequest = req;
+    setSending(true);
+
+    if (typeof fetch !== "function") {
+      finishDemo(req, false);
+      return;
+    }
+
+    var opts = {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload),
+      credentials: "omit",
+      cache: "no-store"
+    };
+    if (req.controller) opts.signal = req.controller.signal;
+    req.timer = setTimeout(function () {
+      if (req.controller) req.controller.abort();
+    }, DEMO_REQUEST_TIMEOUT_MS);
+
+    fetch(DEMO_REQUEST_URL, opts).then(function (res) {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      finishDemo(req, true);
+    }).catch(function () {
+      finishDemo(req, false);
+    });
   });
 })();

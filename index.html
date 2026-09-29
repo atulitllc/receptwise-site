@@ -694,12 +694,7 @@
         </a>
         <p class="call-pill-note" id="modal-call-note">Talk to our AI receptionist, 24/7</p>
         <p class="modal-or">Or leave your details and we'll try to reach you.</p>
-        <!--
-          BOOKING LINK: There is no booking system yet, so this form does NOT submit anywhere.
-          When a real booking tool is ready (e.g. Calendly), either:
-            1) set BOOKING_URL in js/main.js (buttons will open that link instead of this modal), or
-            2) point this form's action at your form backend (Formspree, Netlify Forms, etc.).
-        -->
+        <!-- Demo requests POST JSON to DEMO_REQUEST_URL in js/main.js. -->
         <form id="contact-form" novalidate>
           <input type="hidden" name="plan" id="cf-plan" value="">
           <div class="form-grid">
@@ -710,7 +705,7 @@
             </div>
             <div class="ff">
               <label for="cf-biz">Business name</label>
-              <input id="cf-biz" name="business" type="text" autocomplete="organization">
+              <input id="cf-biz" name="business_name" type="text" autocomplete="organization">
             </div>
             <div class="ff">
               <label for="cf-phone">Phone</label>
@@ -721,9 +716,22 @@
               <input id="cf-email" name="email" type="email" autocomplete="email">
             </div>
             <p class="ff-err ff-wide" id="cf-contact-err" hidden>Please add a phone number or a valid email so we can reach you.</p>
-            <div class="ff ff-wide">
+            <div class="ff">
+              <label for="cf-type">Business type</label>
+              <select id="cf-type" name="business_type">
+                <option value="">Select one</option>
+                <option>Salon or spa</option>
+                <option>Restaurant or café</option>
+                <option>Clinic or practice</option>
+                <option>Home services</option>
+                <option>Auto shop</option>
+                <option>Retail shop</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="ff">
               <label for="cf-time">Preferred time to chat</label>
-              <select id="cf-time" name="time">
+              <select id="cf-time" name="preferred_time">
                 <option>Weekday mornings</option>
                 <option>Weekday afternoons</option>
                 <option>Weekday evenings</option>
@@ -731,9 +739,17 @@
                 <option>Anytime works</option>
               </select>
             </div>
+            <div class="ff ff-wide">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" rows="3"></textarea>
+            </div>
           </div>
-          <button class="btn btn-primary btn-block" type="submit">Request my free chat</button>
-          <p class="form-note">Prototype form: nothing is sent or stored yet.</p>
+          <div class="hp-field" aria-hidden="true">
+            <label for="cf-website">Website</label>
+            <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" data-1p-ignore="true" data-lpignore="true">
+          </div>
+          <button class="btn btn-primary btn-block" id="cf-submit" type="submit">Request my free chat</button>
+          <p class="form-note" id="cf-status" role="status" aria-live="polite">We use this only to reach you about your free chat.</p>
         </form>
       </div>
       <div class="modal-thanks" id="modal-thanks" hidden>
@@ -762,13 +778,14 @@
     <rect x="22" y="84" width="20" height="36" rx="9" fill="#FF6B6B" stroke-width="4"/><rect x="158" y="84" width="20" height="36" rx="9" fill="#FF6B6B" stroke-width="4"/>
     <circle cx="80" cy="153" r="7.5" fill="#FF6B6B" stroke-width="3.5"/></g>
 </g></svg>
-        <h2 tabindex="-1" id="thanks-title">Call to book your demo</h2>
-        <p id="thanks-msg">This form does not send yet. Call (781) 705-7179 and our AI receptionist will book your free 20-minute demo.</p>
+        <h2 tabindex="-1" id="thanks-title">Thanks!</h2>
+        <p id="thanks-msg" aria-live="polite">Thanks! We'll call you within one business day, or call us now at (781) 705-7179</p>
         <div class="thanks-actions">
           <a class="call-pill" href="tel:+17817057179">
             <span class="call-pill-icon" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><path fill="#1F9384" stroke="#1E2A44" stroke-width="2.2" stroke-linejoin="round" d="M16 30 12 12l16 12zM48 30l4-18-16 12z"/><circle cx="32" cy="38" r="20" fill="#2BB3A3" stroke="#1E2A44" stroke-width="2.4"/><circle cx="24" cy="36" r="7.2" fill="#FFF4E0" stroke="#1E2A44" stroke-width="1.8"/><circle cx="40" cy="36" r="7.2" fill="#FFF4E0" stroke="#1E2A44" stroke-width="1.8"/><circle cx="25" cy="37" r="3.1" fill="#1E2A44"/><circle cx="41" cy="37" r="3.1" fill="#1E2A44"/><circle cx="23.6" cy="35.6" r="1.15" fill="#fff"/><circle cx="39.6" cy="35.6" r="1.15" fill="#fff"/><path fill="#FF9F43" stroke="#1E2A44" stroke-width="1.4" stroke-linejoin="round" d="M29.2 42.2 32 46.4 34.8 42.2z"/></svg></span>
             <span>Call <span class="call-pill-num">(781) 705-7179</span></span>
           </a>
+          <button class="btn btn-ghost" type="button" id="thanks-retry" hidden>Try again</button>
           <button class="btn btn-ghost" type="button" data-close-contact>Back to the site</button>
         </div>
       </div>
