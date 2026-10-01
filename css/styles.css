@@ -340,7 +340,6 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .footer-owl{width:74px;opacity:.95}
 .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;border-top:1px solid #2A3550;margin-top:28px;padding-top:18px;font-size:.88rem}
 .footer-bottom p{margin:0}
-.proto-note{color:#9AA5BC}
 @media (min-width:800px){.footer-inner{grid-template-columns:1fr auto auto;gap:40px}}
 
 /* Modal */
