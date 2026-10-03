@@ -35,6 +35,8 @@ The live AI receptionist number is **(781) 705-7179** (`tel:+17817057179`). It i
 call to action: a compact pill in the hero, the final CTA, and the footer, plus a small
 floating "Call now" pill in the bottom-right corner on small screens. Calling it books a free 20-minute demo.
 
+The public contact email is **info@receptwise.com** (`mailto:info@receptwise.com`). It appears next to the phone number in the hero, the final CTA, the footer, and the contact modal, and it replaces the placeholder contact line on the Terms and Privacy pages.
+
 ## Talk in the browser
 Next to the phone pill, visitors can press **Talk in browser** and speak with Nora without a phone.
 The button, and the line "Calls may be recorded to improve service.", stay hidden while

@@ -259,7 +259,7 @@
     var t = e.target.closest("[data-open-contact]");
     if (t) { e.preventDefault(); openModal(t); return; }
     if (e.target.closest("[data-close-contact]")) closeModal();
-    if (e.target.closest("#contact-modal a[href^='tel:']")) closeModal();
+    if (e.target.closest("#contact-modal a[href^='tel:'], #contact-modal a[href^='mailto:']")) closeModal();
   });
   // click on the backdrop closes the dialog
   modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
