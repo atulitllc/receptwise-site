@@ -105,6 +105,8 @@ button.call-pill:disabled{cursor:progress;opacity:.65;animation:none}
 .svg-sprite{position:absolute;width:0;height:0;overflow:hidden}
 .modal-form-view .call-pill{margin-top:2px}
 .modal-or{font-weight:800;color:var(--navy);margin:14px 0 12px}
+.contact-mail{margin:8px 0 0;font-size:.95rem;font-weight:800;line-height:1.4}
+.contact-mail a,a[href^="mailto:"]{font-weight:800;text-decoration:underline;text-underline-offset:.16em;overflow-wrap:anywhere}
 @media (max-width:380px){
   .call-pill{font-size:.98rem;padding-right:12px}
   .call-pill-icon{width:34px;height:34px}
@@ -316,8 +318,10 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .cta-actions{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:8px;width:100%}
 .final-cta .call-pill:focus-visible{outline-color:#fff;box-shadow:0 0 0 5px var(--navy),0 8px 18px rgba(217,123,31,.28)}
 .final-cta .call-row{justify-content:center}
-.final-cta .call-pill-note,.final-cta .record-notice{margin:0}
-.final-cta .call-pill-note{color:#E7EDF8;font-size:.92rem}
+.final-cta .call-pill-note,.final-cta .record-notice,.final-cta .contact-mail{margin:0}
+.final-cta .call-pill-note,.final-cta .contact-mail{color:#E7EDF8;font-size:.92rem}
+.final-cta .contact-mail a{color:#fff}
+.final-cta .contact-mail a:hover{color:var(--orange)}
 .final-cta .record-notice{color:#D5DBE8;font-weight:700}
 .final-cta .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.75)}
 .final-cta .btn-ghost:hover{background:#fff;color:var(--navy)}
@@ -332,11 +336,14 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .footer-brand .call-row{margin-top:14px}
 .footer-brand .call-pill{margin-top:0}
 .footer-brand .call-pill:focus-visible{outline-color:#fff;box-shadow:0 0 0 5px #141D31,0 8px 18px rgba(217,123,31,.28)}
-.footer-brand .call-pill-note{color:#E7EDF8}
+.footer-brand .call-pill-note,.footer-brand .contact-mail{color:#E7EDF8}
+.footer-brand .contact-mail a{color:#fff}
+.footer-brand .contact-mail a:hover{color:var(--orange)}
 .footer-brand .record-notice{color:#C6CEDD;font-weight:700}
 .footer-links{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px 20px}
 .footer-links a,.footer-bottom a{color:#fff;text-decoration:none;font-weight:700}
 .footer-links a:hover,.footer-bottom a:hover{color:var(--orange);text-decoration:underline}
+.footer-bottom a[href^="mailto:"]{text-decoration:underline;text-underline-offset:.16em;overflow-wrap:anywhere}
 .footer-owl{width:74px;opacity:.95}
 .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;border-top:1px solid #2A3550;margin-top:28px;padding-top:18px;font-size:.88rem}
 .footer-bottom p{margin:0}
